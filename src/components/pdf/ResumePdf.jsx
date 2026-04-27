@@ -338,32 +338,29 @@ function PdfProjectsSection({ projects, roles }) {
   const groups = sorted.filter(r => byRole[r.role_id]?.length)
   if (!groups.length) return null
 
-  const [firstGroup, ...restGroups] = groups
-  const [firstCard, ...restCards] = byRole[firstGroup.role_id]
-
   return (
     <View style={S.section}>
-      {/* Title paired with the first group label + first card — never orphaned */}
-      <View wrap={false}>
-        <Text style={S.sectionTitle}>Key Projects</Text>
-        <View style={S.projectGroup}>
-          <Text style={S.projectGroupLabel}>
-            {firstGroup.title}
-            <Text style={S.projectGroupCompany}> · {firstGroup.company}</Text>
-          </Text>
-          <PdfProjectCard project={firstCard} />
-        </View>
-      </View>
-      {restCards.map(p => <PdfProjectCard key={p.project_id} project={p} />)}
-      {restGroups.map(role => (
-        <View key={role.role_id} style={S.projectGroup}>
-          <Text style={S.projectGroupLabel}>
-            {role.title}
-            <Text style={S.projectGroupCompany}> · {role.company}</Text>
-          </Text>
-          {byRole[role.role_id].map(p => <PdfProjectCard key={p.project_id} project={p} />)}
-        </View>
-      ))}
+      {groups.map((role, idx) => {
+        const [firstCard, ...restCards] = byRole[role.role_id]
+        return (
+          <View key={role.role_id} style={S.projectGroup}>
+            {/*
+              Every group label must travel with its first card.
+              For the first group the section title is included so it is
+              never stranded without content below it either.
+            */}
+            <View wrap={false}>
+              {idx === 0 && <Text style={S.sectionTitle}>Key Projects</Text>}
+              <Text style={S.projectGroupLabel}>
+                {role.title}
+                <Text style={S.projectGroupCompany}> · {role.company}</Text>
+              </Text>
+              <PdfProjectCard project={firstCard} />
+            </View>
+            {restCards.map(p => <PdfProjectCard key={p.project_id} project={p} />)}
+          </View>
+        )
+      })}
     </View>
   )
 }
