@@ -190,9 +190,14 @@ a:hover {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: #2563eb;
+  padding-top: 10px;
   padding-bottom: 8px;
   margin-bottom: 18px;
   border-bottom: 1.5px solid #e5e7eb;
+  position: sticky;
+  top: 49px;
+  background: #fff;
+  z-index: 2;
 }
 @keyframes sectionTitleFlash {
   0%   { background-color: #dbeafe; border-bottom-color: #93c5fd; }
