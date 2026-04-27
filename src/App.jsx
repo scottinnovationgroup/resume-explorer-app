@@ -2,6 +2,7 @@ import { useState } from 'react'
 import resumeData from '../resume_explorer_model.json'
 import ViewToggle from './components/ViewToggle'
 import ResumeView from './components/ResumeView'
+import SectionNav from './components/SectionNav'
 import { exportToPdf } from './utils/exportPdf'
 
 const VIEWS = [
@@ -27,6 +28,7 @@ export default function App() {
 
   return (
     <div className="app">
+      <SectionNav view={view} />
       <div className="app-toolbar">
         <div className="toolbar-inner">
           <span className="toolbar-label">Resume Explorer</span>

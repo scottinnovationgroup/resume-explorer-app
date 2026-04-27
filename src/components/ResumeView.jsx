@@ -13,31 +13,43 @@ export default function ResumeView({ data, view }) {
     <article className="resume">
       <ResumeHeader person={data.person} />
 
-      <ExperienceSection
-        roles={data.roles}
-        companies={data.companies}
-        projects={data.projects}
-        view={view}
-      />
-
-      {isDetailed && (
-        <ProjectsSection
-          projects={data.projects}
+      <div id="experience">
+        <ExperienceSection
           roles={data.roles}
           companies={data.companies}
+          projects={data.projects}
+          view={view}
         />
+      </div>
+
+      {isDetailed && (
+        <div id="projects">
+          <ProjectsSection
+            projects={data.projects}
+            roles={data.roles}
+            companies={data.companies}
+          />
+        </div>
       )}
 
       {isDetailed && (
-        <SkillsSection skillsCatalog={data.skills_catalog} />
+        <div id="skills">
+          <SkillsSection skillsCatalog={data.skills_catalog} />
+        </div>
       )}
 
-      <EducationSection education={data.education} />
+      <div id="education">
+        <EducationSection education={data.education} />
+      </div>
 
-      <CertificationsSection certifications={data.certifications} />
+      <div id="certifications">
+        <CertificationsSection certifications={data.certifications} />
+      </div>
 
       {isDetailed && (
-        <IndependentProjectsSection projects={data.independent_projects} />
+        <div id="independent-projects">
+          <IndependentProjectsSection projects={data.independent_projects} />
+        </div>
       )}
     </article>
   )
