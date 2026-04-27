@@ -1,3 +1,4 @@
+import { forwardRef } from 'react'
 import ResumeHeader from './sections/ResumeHeader'
 import ExperienceSection from './sections/ExperienceSection'
 import ProjectsSection from './sections/ProjectsSection'
@@ -6,11 +7,11 @@ import EducationSection from './sections/EducationSection'
 import CertificationsSection from './sections/CertificationsSection'
 import IndependentProjectsSection from './sections/IndependentProjectsSection'
 
-export default function ResumeView({ data, view }) {
+const ResumeView = forwardRef(function ResumeView({ data, view }, ref) {
   const isDetailed = view === 'detailed'
 
   return (
-    <article className="resume">
+    <article className="resume" ref={ref}>
       <ResumeHeader person={data.person} />
 
       <ExperienceSection
@@ -41,4 +42,6 @@ export default function ResumeView({ data, view }) {
       )}
     </article>
   )
-}
+})
+
+export default ResumeView
