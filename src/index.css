@@ -1,0 +1,478 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f0f2f5;
+  color: #1a1a2e;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: #2563eb;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* ─── App Shell ──────────────────────────────────────────────── */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-toolbar {
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.toolbar-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.toolbar-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+.app-main {
+  padding: 32px 16px 64px;
+}
+
+/* ─── View Toggle ─────────────────────────────────────────────── */
+.view-toggle {
+  display: flex;
+  gap: 6px;
+}
+.toggle-btn {
+  padding: 5px 14px;
+  border-radius: 6px;
+  border: 1.5px solid #d1d5db;
+  background: transparent;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  color: #6b7280;
+  transition: all 0.15s ease;
+}
+.toggle-btn:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+}
+.toggle-btn.active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+
+/* ─── Resume Paper ────────────────────────────────────────────── */
+.resume {
+  max-width: 860px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 52px 60px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06);
+  border-radius: 4px;
+}
+
+/* ─── Header ──────────────────────────────────────────────────── */
+.resume-header {
+  text-align: center;
+  margin-bottom: 36px;
+  padding-bottom: 28px;
+  border-bottom: 1.5px solid #e5e7eb;
+}
+.resume-name {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.resume-headline {
+  font-size: 0.9rem;
+  color: #4b5563;
+  margin-top: 8px;
+  line-height: 1.5;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.resume-contact {
+  font-size: 0.8125rem;
+  color: #6b7280;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2px 4px;
+}
+.contact-sep {
+  color: #d1d5db;
+  padding: 0 2px;
+}
+
+/* ─── Section ─────────────────────────────────────────────────── */
+.resume-section {
+  margin-bottom: 32px;
+}
+.resume-section:last-child {
+  margin-bottom: 0;
+}
+.section-title {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #2563eb;
+  padding-bottom: 8px;
+  margin-bottom: 18px;
+  border-bottom: 1.5px solid #e5e7eb;
+}
+
+/* ─── Role Card ───────────────────────────────────────────────── */
+.role-card {
+  margin-bottom: 22px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #f3f4f6;
+}
+.role-card:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.role-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.role-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.role-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #111827;
+}
+.role-company {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+.role-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.role-dates {
+  font-size: 0.8125rem;
+  color: #6b7280;
+  white-space: nowrap;
+}
+.role-location {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+.role-summary {
+  font-size: 0.875rem;
+  color: #374151;
+  line-height: 1.65;
+  margin-top: 8px;
+}
+
+/* ─── Role Meta (detail view) ─────────────────────────────────── */
+.role-meta-block {
+  font-size: 0.8125rem;
+  color: #4b5563;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+.meta-label {
+  font-weight: 600;
+  color: #374151;
+}
+.meta-value {
+  color: #6b7280;
+}
+
+/* ─── Tags ────────────────────────────────────────────────────── */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 10px;
+}
+.tag {
+  display: inline-block;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.7125rem;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+}
+.tag-tech {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+}
+
+/* ─── Projects Section ────────────────────────────────────────── */
+.projects-role-group {
+  margin-bottom: 24px;
+}
+.projects-role-group:last-child {
+  margin-bottom: 0;
+}
+.projects-role-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 12px;
+  padding-bottom: 4px;
+}
+.projects-role-company {
+  font-weight: 400;
+  color: #9ca3af;
+}
+.project-card {
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  border: 1px solid #e5e7eb;
+  border-left: 3px solid #93c5fd;
+  border-radius: 0 6px 6px 0;
+  background: #fafafa;
+}
+.project-card:last-child {
+  margin-bottom: 0;
+}
+.project-card-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.project-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #111827;
+}
+.project-type {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  font-style: italic;
+}
+.project-summary {
+  font-size: 0.8125rem;
+  color: #4b5563;
+  line-height: 1.6;
+}
+.project-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.metric-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 7px 14px;
+  min-width: 80px;
+}
+.metric-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2563eb;
+  line-height: 1.2;
+}
+.metric-name {
+  font-size: 0.6375rem;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 2px;
+  text-align: center;
+}
+.project-outcomes {
+  margin-top: 8px;
+  padding-left: 16px;
+  list-style: disc;
+}
+.project-outcomes li {
+  font-size: 0.8125rem;
+  color: #4b5563;
+  line-height: 1.55;
+  margin-bottom: 2px;
+}
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+/* ─── Skills ──────────────────────────────────────────────────── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px 24px;
+}
+.skill-category {
+  /* column */
+}
+.skill-category-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #374151;
+  margin-bottom: 6px;
+}
+.skill-item {
+  font-size: 0.8125rem;
+  color: #4b5563;
+  padding: 2px 0;
+  line-height: 1.5;
+}
+
+/* ─── Education ───────────────────────────────────────────────── */
+.edu-item {
+  margin-bottom: 14px;
+}
+.edu-item:last-child {
+  margin-bottom: 0;
+}
+.edu-degree {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #111827;
+}
+.edu-institution {
+  font-size: 0.8125rem;
+  color: #6b7280;
+  margin-top: 2px;
+}
+.edu-field {
+  font-size: 0.8125rem;
+  color: #9ca3af;
+}
+
+/* ─── Certifications ──────────────────────────────────────────── */
+.certs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cert-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.cert-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #111827;
+}
+.cert-meta {
+  font-size: 0.8125rem;
+  color: #6b7280;
+}
+.cert-meta::before {
+  content: '·';
+  margin-right: 8px;
+  color: #d1d5db;
+}
+
+/* ─── Independent Projects ────────────────────────────────────── */
+.indie-project-card {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f3f4f6;
+}
+.indie-project-card:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.indie-project-header {
+  margin-bottom: 6px;
+}
+.indie-project-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.indie-project-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #111827;
+}
+.indie-project-type {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  font-style: italic;
+}
+.indie-project-link {
+  font-size: 0.8125rem;
+  color: #2563eb;
+  display: block;
+  margin-top: 2px;
+}
+.indie-project-summary {
+  font-size: 0.875rem;
+  color: #374151;
+  line-height: 1.65;
+}
+.indie-project-users {
+  font-size: 0.8125rem;
+  color: #4b5563;
+  margin-top: 6px;
+}
+
+/* ─── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .resume {
+    padding: 32px 24px;
+  }
+  .role-header {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .role-header-right {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 8px;
+  }
+}

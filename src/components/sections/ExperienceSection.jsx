@@ -1,0 +1,113 @@
+import { formatDateRange, formatMoney } from '../../utils/format'
+
+function Tags({ items, className = 'tag' }) {
+  if (!items?.length) return null
+  return (
+    <div className="tags">
+      {items.map(item => (
+        <span key={item} className={className}>{item}</span>
+      ))}
+    </div>
+  )
+}
+
+function ManagementScope({ scope }) {
+  if (!scope) return null
+  return (
+    <div className="role-meta-block">
+      <span className="meta-label">Team:</span>{' '}
+      <span className="meta-value">
+        {scope.team_size_direct_reports} direct reports
+        {scope.team_size_supported_or_mentored
+          ? ` · ${scope.team_size_supported_or_mentored} supported/mentored`
+          : ''}
+      </span>
+    </div>
+  )
+}
+
+function ContractContext({ ctx }) {
+  if (!ctx) return null
+  return (
+    <div className="role-meta-block">
+      <span className="meta-label">Contract:</span>{' '}
+      <span className="meta-value">
+        {ctx.client} · {formatMoney(ctx.contract_value)} · {ctx.period_of_performance}
+      </span>
+    </div>
+  )
+}
+
+function DeliveryScope({ scope }) {
+  if (!scope) return null
+  return (
+    <div className="role-meta-block">
+      <span className="meta-label">Portfolio:</span>{' '}
+      <span className="meta-value">
+        {scope.portfolio_projects_tracked} projects tracked
+        {scope.total_contract_value
+          ? ` · ${formatMoney(scope.total_contract_value)} total contract value`
+          : ''}
+        {scope.customer_accounts?.length
+          ? ` · Accounts: ${scope.customer_accounts.join(', ')}`
+          : ''}
+      </span>
+    </div>
+  )
+}
+
+function RoleCard({ role, view }) {
+  const isDetailed = view === 'detailed'
+  const dates = formatDateRange(role.start_date, role.end_date, role.current_role)
+
+  return (
+    <div className="role-card">
+      <div className="role-header">
+        <div className="role-header-left">
+          <span className="role-title">{role.title}</span>
+          <span className="role-company">{role.company}</span>
+        </div>
+        <div className="role-header-right">
+          <span className="role-dates">{dates}</span>
+          {role.location && (
+            <span className="role-location">{role.location}</span>
+          )}
+        </div>
+      </div>
+
+      {role.role_summary && (
+        <p className="role-summary">{role.role_summary}</p>
+      )}
+
+      {isDetailed && (
+        <>
+          {role.management_scope && (
+            <ManagementScope scope={role.management_scope} />
+          )}
+          {role.contract_context && (
+            <ContractContext ctx={role.contract_context} />
+          )}
+          {role.delivery_scope && (
+            <DeliveryScope scope={role.delivery_scope} />
+          )}
+          {role.primary_themes?.length > 0 && (
+            <Tags items={role.primary_themes} />
+          )}
+        </>
+      )}
+    </div>
+  )
+}
+
+export default function ExperienceSection({ roles, view }) {
+  const sorted = [...roles].sort((a, b) => b.start_date.localeCompare(a.start_date))
+
+  return (
+    <section className="resume-section">
+      <h2 className="section-title">Experience</h2>
+      {sorted.map(role => (
+        <RoleCard key={role.role_id} role={role} view={view} />
+      ))}
+    </section>
+  )
+}
