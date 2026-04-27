@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import resumeData from '../resume_explorer_model.json'
 import ViewToggle from './components/ViewToggle'
 import ResumeView from './components/ResumeView'
@@ -12,13 +12,12 @@ const VIEWS = [
 export default function App() {
   const [view, setView] = useState('compact')
   const [exporting, setExporting] = useState(false)
-  const resumeRef = useRef(null)
 
   async function handleExportPdf() {
-    if (!resumeRef.current || exporting) return
+    if (exporting) return
     setExporting(true)
     try {
-      await exportToPdf(resumeRef.current, {
+      await exportToPdf(resumeData, view, {
         personName: resumeData.person.name,
       })
     } finally {
@@ -56,7 +55,7 @@ export default function App() {
         </div>
       </div>
       <main className="app-main">
-        <ResumeView ref={resumeRef} data={resumeData} view={view} />
+        <ResumeView data={resumeData} view={view} />
       </main>
     </div>
   )
