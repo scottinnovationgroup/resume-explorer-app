@@ -56,14 +56,39 @@ function DeliveryScope({ scope }) {
   )
 }
 
+const BULLET_TYPE_LABELS = {
+  achievement: 'Achievements',
+  leadership: 'Leadership',
+  founder_project: 'Founder Project',
+}
+
 function RoleBullets({ bullets }) {
   if (!bullets?.length) return null
+
+  // Group bullets by bullet_type, preserving first-seen order
+  const seen = {}
+  for (const b of bullets) {
+    const type = b.bullet_type ?? 'other'
+    if (!seen[type]) seen[type] = []
+    seen[type].push(b)
+  }
+  const groups = Object.keys(seen).sort().map(type => ({ type, items: seen[type] }))
+
   return (
-    <ul className="role-bullets">
-      {bullets.map(b => (
-        <li key={b.bullet_id} className="role-bullet">{b.bullet_text}</li>
+    <div className="role-bullets-container">
+      {groups.map(({ type, items }) => (
+        <div key={type}>
+          <span className="bullet-type-label">
+            {BULLET_TYPE_LABELS[type] ?? type}
+          </span>
+          <ul className="role-bullets">
+            {items.map(b => (
+              <li key={b.bullet_id} className="role-bullet">{b.bullet_text}</li>
+            ))}
+          </ul>
+        </div>
       ))}
-    </ul>
+    </div>
   )
 }
 

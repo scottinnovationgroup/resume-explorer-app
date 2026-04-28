@@ -67,6 +67,15 @@ const S = StyleSheet.create({
   roleSummary: { fontSize: 8.5, color: MED, lineHeight: 1.65, marginTop: 5 },
 
   // Bullet points
+  bulletGroup: { marginTop: 6 },
+  bulletTypeLabel: {
+    fontSize: 6,
+    fontFamily: 'Helvetica-Bold',
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
+    color: LIGHT,
+    marginBottom: 3,
+  },
   bulletRow: { flexDirection: 'row', alignItems: 'flex-start', marginTop: 4 },
   bulletDash: { fontSize: 8.5, color: FAINT, width: 10, flexShrink: 0 },
   bulletText: { fontSize: 8.5, color: MED, lineHeight: 1.6, flex: 1 },
@@ -187,6 +196,24 @@ const S = StyleSheet.create({
   },
 })
 
+// ─── Shared constants ─────────────────────────────────────────────────────────
+const BULLET_TYPE_LABELS = {
+  achievement: 'Achievements',
+  leadership: 'Leadership',
+  founder_project: 'Founder Project',
+}
+
+function groupBulletsByType(bullets) {
+  if (!bullets?.length) return []
+  const seen = {}
+  for (const b of bullets) {
+    const type = b.bullet_type ?? 'other'
+    if (!seen[type]) seen[type] = []
+    seen[type].push(b)
+  }
+  return Object.keys(seen).sort().map(type => ({ type, items: seen[type] }))
+}
+
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
 function PdfHeader({ person }) {
@@ -243,13 +270,27 @@ function PdfRoleCard({ role, bullets, view, prependTitle = false }) {
         )}
       </View>
 
-      {/* Each bullet is atomic — never split across a page break */}
-      {bullets?.map(b => (
-        <View key={b.bullet_id} style={S.bulletRow} wrap={false}>
-          <Text style={S.bulletDash}>–</Text>
-          <Text style={S.bulletText}>{b.bullet_text}</Text>
-        </View>
-      ))}
+      {/* Bullets grouped by type, sorted alphabetically — label travels with first bullet */}
+      {groupBulletsByType(bullets).map(({ type, items }) => {
+        const [first, ...rest] = items
+        return (
+          <View key={type} style={S.bulletGroup}>
+            <View wrap={false}>
+              <Text style={S.bulletTypeLabel}>{BULLET_TYPE_LABELS[type] ?? type}</Text>
+              <View style={S.bulletRow}>
+                <Text style={S.bulletDash}>–</Text>
+                <Text style={S.bulletText}>{first.bullet_text}</Text>
+              </View>
+            </View>
+            {rest.map(b => (
+              <View key={b.bullet_id} style={S.bulletRow} wrap={false}>
+                <Text style={S.bulletDash}>–</Text>
+                <Text style={S.bulletText}>{b.bullet_text}</Text>
+              </View>
+            ))}
+          </View>
+        )
+      })}
 
       {isDetailed && (
         <>
