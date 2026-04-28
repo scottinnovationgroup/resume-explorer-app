@@ -56,7 +56,18 @@ function DeliveryScope({ scope }) {
   )
 }
 
-function RoleCard({ role, view }) {
+function RoleBullets({ bullets }) {
+  if (!bullets?.length) return null
+  return (
+    <ul className="role-bullets">
+      {bullets.map(b => (
+        <li key={b.bullet_id} className="role-bullet">{b.bullet_text}</li>
+      ))}
+    </ul>
+  )
+}
+
+function RoleCard({ role, bullets, view }) {
   const isDetailed = view === 'detailed'
   const dates = formatDateRange(role.start_date, role.end_date, role.current_role)
 
@@ -79,6 +90,8 @@ function RoleCard({ role, view }) {
         <p className="role-summary">{role.role_summary}</p>
       )}
 
+      <RoleBullets bullets={bullets} />
+
       {isDetailed && (
         <>
           {role.management_scope && (
@@ -99,14 +112,25 @@ function RoleCard({ role, view }) {
   )
 }
 
-export default function ExperienceSection({ roles, view }) {
+export default function ExperienceSection({ roles, resumePoints, view }) {
   const sorted = [...roles].sort((a, b) => b.start_date.localeCompare(a.start_date))
+
+  const bulletsByRole = {}
+  resumePoints?.filter(p => p.status === 'approved').forEach(p => {
+    if (!bulletsByRole[p.role_id]) bulletsByRole[p.role_id] = []
+    bulletsByRole[p.role_id].push(p)
+  })
 
   return (
     <section className="resume-section">
       <h2 className="section-title">Experience</h2>
       {sorted.map(role => (
-        <RoleCard key={role.role_id} role={role} view={view} />
+        <RoleCard
+          key={role.role_id}
+          role={role}
+          bullets={bulletsByRole[role.role_id]}
+          view={view}
+        />
       ))}
     </section>
   )

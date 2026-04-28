@@ -51,7 +51,6 @@ const S = StyleSheet.create({
     borderBottomColor: BORDER,
   },
 
-  // Role card — wrap={false} on the View prevents it splitting across pages
   roleCard: {
     marginBottom: 12,
     paddingBottom: 12,
@@ -66,6 +65,11 @@ const S = StyleSheet.create({
   roleDates: { fontSize: 7.5, color: LIGHT },
   roleLocation: { fontSize: 7, color: FAINT, marginTop: 2 },
   roleSummary: { fontSize: 8.5, color: MED, lineHeight: 1.65, marginTop: 5 },
+
+  // Bullet points
+  bulletRow: { flexDirection: 'row', alignItems: 'flex-start', marginTop: 4 },
+  bulletDash: { fontSize: 8.5, color: FAINT, width: 10, flexShrink: 0 },
+  bulletText: { fontSize: 8.5, color: MED, lineHeight: 1.6, flex: 1 },
 
   // Detailed extras
   metaBlock: { fontSize: 8, color: LIGHT, marginTop: 4, lineHeight: 1.5 },
@@ -210,29 +214,42 @@ function PdfHeader({ person }) {
   )
 }
 
-function PdfRoleCard({ role, view }) {
+function PdfRoleCard({ role, bullets, view, prependTitle = false }) {
   const isDetailed = view === 'detailed'
   const dates = formatDateRange(role.start_date, role.end_date, role.current_role)
 
   return (
-    // wrap={false} is the critical prop — react-pdf will never split this
-    // View across a page boundary; instead it moves the entire card to the
-    // next page if it doesn't fit on the current one.
-    <View style={S.roleCard} wrap={false}>
-      <View style={S.roleHeader}>
-        <View style={S.roleLeft}>
-          <Text style={S.roleTitle}>{role.title}</Text>
-          <Text style={S.roleCompany}>{role.company}</Text>
+    // Outer card can span pages — individual bullets are the atomic units.
+    <View style={S.roleCard}>
+      {/*
+        Header + summary stay together.
+        When prependTitle is true this block also carries the section title,
+        so the heading is never stranded without content below it.
+      */}
+      <View wrap={false}>
+        {prependTitle && <Text style={S.sectionTitle}>Experience</Text>}
+        <View style={S.roleHeader}>
+          <View style={S.roleLeft}>
+            <Text style={S.roleTitle}>{role.title}</Text>
+            <Text style={S.roleCompany}>{role.company}</Text>
+          </View>
+          <View style={S.roleRight}>
+            <Text style={S.roleDates}>{dates}</Text>
+            {role.location && <Text style={S.roleLocation}>{role.location}</Text>}
+          </View>
         </View>
-        <View style={S.roleRight}>
-          <Text style={S.roleDates}>{dates}</Text>
-          {role.location && <Text style={S.roleLocation}>{role.location}</Text>}
-        </View>
+        {role.role_summary && (
+          <Text style={S.roleSummary}>{role.role_summary}</Text>
+        )}
       </View>
 
-      {role.role_summary && (
-        <Text style={S.roleSummary}>{role.role_summary}</Text>
-      )}
+      {/* Each bullet is atomic — never split across a page break */}
+      {bullets?.map(b => (
+        <View key={b.bullet_id} style={S.bulletRow} wrap={false}>
+          <Text style={S.bulletDash}>–</Text>
+          <Text style={S.bulletText}>{b.bullet_text}</Text>
+        </View>
+      ))}
 
       {isDetailed && (
         <>
@@ -505,16 +522,26 @@ function PdfFooter() {
   )
 }
 
-function PdfExperienceSection({ roles, view }) {
+function PdfExperienceSection({ roles, resumePoints, view }) {
   const sorted = [...roles].sort((a, b) => b.start_date.localeCompare(a.start_date))
-  const [first, ...rest] = sorted
+
+  const bulletsByRole = {}
+  resumePoints?.filter(p => p.status === 'approved').forEach(p => {
+    if (!bulletsByRole[p.role_id]) bulletsByRole[p.role_id] = []
+    bulletsByRole[p.role_id].push(p)
+  })
+
   return (
     <View style={S.section}>
-      <View wrap={false}>
-        <Text style={S.sectionTitle}>Experience</Text>
-        {first && <PdfRoleCard role={first} view={view} />}
-      </View>
-      {rest.map(role => <PdfRoleCard key={role.role_id} role={role} view={view} />)}
+      {sorted.map((role, idx) => (
+        <PdfRoleCard
+          key={role.role_id}
+          role={role}
+          bullets={bulletsByRole[role.role_id]}
+          view={view}
+          prependTitle={idx === 0}
+        />
+      ))}
     </View>
   )
 }
@@ -528,7 +555,7 @@ export function ResumePdf({ data, view }) {
       <Page size="A4" style={S.page}>
         <PdfHeader person={data.person} />
 
-        <PdfExperienceSection roles={data.roles} view={view} />
+        <PdfExperienceSection roles={data.roles} resumePoints={data.resume_points} view={view} />
 
         {isDetailed && (
           <PdfProjectsSection projects={data.projects} roles={data.roles} />

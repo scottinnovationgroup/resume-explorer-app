@@ -16,8 +16,7 @@ export default function ResumeView({ data, view }) {
       <div id="experience">
         <ExperienceSection
           roles={data.roles}
-          companies={data.companies}
-          projects={data.projects}
+          resumePoints={data.resume_points}
           view={view}
         />
       </div>
