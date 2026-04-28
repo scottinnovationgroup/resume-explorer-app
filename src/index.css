@@ -284,6 +284,7 @@ a:hover {
   text-transform: uppercase;
   color: #6b7280;
   margin-bottom: 4px;
+  padding: 10px 0;
 }
 .role-bullets {
   list-style: none;
