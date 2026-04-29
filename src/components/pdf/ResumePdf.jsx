@@ -142,12 +142,14 @@ const S = StyleSheet.create({
   metricName: { fontSize: 6, color: FAINT, textTransform: 'uppercase' },
   techRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 4 },
   techTag: {
-    backgroundColor: '#eff6ff',
+    backgroundColor: '#f1f5f9',
     borderRadius: 10,
+    borderWidth: 0.5,
+    borderColor: '#e2e8f0',
     paddingHorizontal: 5,
     paddingVertical: 1.5,
   },
-  techTagText: { fontSize: 7, color: '#1d4ed8' },
+  techTagText: { fontSize: 7, color: '#475569' },
 
   // Skills
   skillsGrid: { flexDirection: 'row', flexWrap: 'wrap' },

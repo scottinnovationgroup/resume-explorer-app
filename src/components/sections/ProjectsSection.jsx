@@ -42,7 +42,7 @@ function ProjectCard({ project }) {
       {project.technologies?.length > 0 && (
         <div className="project-tech">
           {project.technologies.map(t => (
-            <span key={t} className="tag tag-tech">{t}</span>
+            <span key={t} className="tag">{t}</span>
           ))}
         </div>
       )}
