@@ -11,9 +11,23 @@ const VIEWS = [
   { id: 'detailed', label: 'Detailed' },
 ]
 
+const VALID_VIEWS = new Set(VIEWS.map(v => v.id))
+
+function getInitialView() {
+  const param = new URLSearchParams(window.location.search).get('view')
+  return VALID_VIEWS.has(param) ? param : 'compact'
+}
+
 export default function App() {
-  const [view, setView] = useState('compact')
+  const [view, setView] = useState(getInitialView)
   const [exporting, setExporting] = useState(false)
+
+  function handleViewChange(v) {
+    setView(v)
+    const url = new URL(window.location)
+    url.searchParams.set('view', v)
+    window.history.replaceState(null, '', url)
+  }
 
   async function handleExportPdf() {
     if (exporting) return
@@ -42,7 +56,7 @@ export default function App() {
             <span className="toolbar-label">Resume Explorer</span>
           </div>
           <div className="toolbar-actions">
-            <ViewToggle view={view} views={VIEWS} onChange={setView} />
+            <ViewToggle view={view} views={VIEWS} onChange={handleViewChange} />
             <div className="toolbar-divider" />
             <button
               className={`export-link${exporting ? ' exporting' : ''}`}
