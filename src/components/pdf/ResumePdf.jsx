@@ -50,7 +50,7 @@ const S = StyleSheet.create({
   },
 
   roleCard: {
-    marginBottom: 12,
+    marginBottom: 10,
     paddingBottom: 12,
     borderBottomWidth: 0.5,
     borderBottomColor: '#e5e7eb',
@@ -61,7 +61,7 @@ const S = StyleSheet.create({
     borderLeftColor: '#bfdbfe',
     paddingLeft: 16,
     marginLeft: -16,
-    marginBottom: 12,
+    marginBottom: 10,
     paddingBottom: 0,
   },
 
@@ -575,12 +575,24 @@ function PdfIndependentProjectsSection({ projects }) {
 }
 
 function PdfFooter() {
+  const { hostname, port } = window.location
+  const standardPorts = { 'http:': '80', 'https:': '443' }
+  const isStandardPort = !port || port === standardPorts[window.location.protocol]
+  const domain = isStandardPort ? hostname : `${hostname}:${port}`
+
   return (
     <>
       <View fixed style={S.footerDivider} />
+      <Link
+        fixed
+        src={window.location.origin}
+        style={[S.footerText, { left: 40, right: 'auto', textAlign: 'left', textDecoration: 'none', color: FAINT }]}
+      >
+        {domain}
+      </Link>
       <Text
         fixed
-        style={S.footerText}
+        style={[S.footerText, { left: 'auto', right: 40, textAlign: 'right' }]}
         render={({ pageNumber, totalPages }) => `Page ${pageNumber} of ${totalPages}`}
       />
     </>
