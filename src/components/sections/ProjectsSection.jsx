@@ -16,7 +16,7 @@ function MetricBadge({ metric }) {
 
 function ProjectCard({ project }) {
   return (
-    <div className="project-card">
+    <div id={`project-${project.project_id}`} className="project-card">
       <div className="project-card-header">
         <span className="project-name">{project.project_name}</span>
         <span className="project-type">{project.project_type}</span>

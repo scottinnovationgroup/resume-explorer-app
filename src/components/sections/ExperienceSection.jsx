@@ -97,7 +97,7 @@ function RoleCard({ role, bullets, view }) {
   const dates = formatDateRange(role.start_date, role.end_date, role.current_role)
 
   return (
-    <div className="role-card">
+    <div id={`role-${role.role_id}`} className="role-card">
       <div className="role-header">
         <div className="role-header-left">
           <span className="role-title">{role.title}</span>

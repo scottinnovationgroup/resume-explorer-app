@@ -28,7 +28,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <SectionNav view={view} />
+      <SectionNav view={view} data={resumeData} />
       <div className="app-toolbar">
         <div className="toolbar-inner">
           <span className="toolbar-label">Resume Explorer</span>
