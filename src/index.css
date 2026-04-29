@@ -50,7 +50,8 @@ a:hover {
 }
 
 .app-main {
-  padding: 32px 16px 64px;
+  flex: 1;
+  padding: 32px 16px 48px;
   margin-left: var(--nav-w);
   transition: margin-left 0.2s ease;
 }
@@ -60,6 +61,41 @@ body.nav-collapsed .app-main {
 
 .app-main article > div {
   margin-bottom: 30px;
+}
+
+/* ─── Footer ──────────────────────────────────────────────────── */
+.app-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  margin-left: var(--nav-w);
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.75rem;
+  color: #9ca3af;
+  transition: margin-left 0.2s ease;
+  justify-content: center;
+}
+body.nav-collapsed .app-footer {
+  margin-left: var(--nav-w-collapsed);
+}
+.footer-name {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+.footer-sep {
+  color: #d1d5db;
+}
+.footer-github {
+  display: flex;
+  align-items: center;
+  color: #9ca3af;
+  margin-left: 2px;
+}
+.footer-github:hover {
+  color: #374151;
 }
 
 /* ─── Toolbar Actions ─────────────────────────────────────────── */
