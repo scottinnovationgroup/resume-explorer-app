@@ -707,6 +707,7 @@ body.nav-collapsed .app-main {
 .section-nav-item-row {
   display: flex;
   align-items: stretch;
+  margin-bottom: 2px;
 }
 .section-nav-item-row .section-nav-item {
   flex: 1;
