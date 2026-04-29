@@ -41,12 +41,28 @@ a:hover {
   align-items: center;
   justify-content: space-between;
 }
+.toolbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.toolbar-person-name {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.01em;
+}
+.toolbar-brand-sep {
+  width: 1px;
+  height: 16px;
+  background: #d1d5db;
+}
 .toolbar-label {
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #6b7280;
+  color: #9ca3af;
 }
 
 .app-main {

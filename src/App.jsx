@@ -31,7 +31,15 @@ export default function App() {
       <SectionNav view={view} data={resumeData} />
       <div className="app-toolbar">
         <div className="toolbar-inner">
-          <span className="toolbar-label">Resume Explorer</span>
+          <div className="toolbar-brand">
+            {resumeData.person?.name && (
+              <>
+                <span className="toolbar-person-name">{resumeData.person.name}</span>
+                <span className="toolbar-brand-sep" />
+              </>
+            )}
+            <span className="toolbar-label">Resume Explorer</span>
+          </div>
           <div className="toolbar-actions">
             <ViewToggle view={view} views={VIEWS} onChange={setView} />
             <div className="toolbar-divider" />
