@@ -438,27 +438,32 @@ a:hover {
 }
 .metric-badge {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
+  gap: 10px;
   background: #fff;
   border: 1px solid #e2e8f0;
   border-radius: 6px;
-  padding: 7px 14px;
-  min-width: 80px;
+  padding: 10px 14px;
+  min-width: 140px;
 }
 .metric-value {
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: #2563eb;
   line-height: 1.2;
+}
+.metric-value-suffix {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-left: 2px;
 }
 .metric-name {
   font-size: 0.6375rem;
   color: #9ca3af;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  margin-top: 2px;
-  text-align: center;
 }
 .project-outcomes {
   list-style: none;

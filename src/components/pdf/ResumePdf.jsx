@@ -1,5 +1,5 @@
 import { Document, Page, View, Text, Link, StyleSheet } from '@react-pdf/renderer'
-import { formatDateRange, formatMoney } from '../../utils/format'
+import { formatDateRange, formatMoney, formatMetricParts } from '../../utils/format'
 
 // ─── Palette (mirrors the web app) ────────────────────────────────────────────
 const BLUE   = '#2563eb'
@@ -124,17 +124,22 @@ const S = StyleSheet.create({
   projectSummary: { fontSize: 8, color: '#4b5563', lineHeight: 1.6 },
   metricsRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 5 },
   metricBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
     backgroundColor: '#fff',
     borderWidth: 0.75,
     borderColor: '#e2e8f0',
     borderRadius: 4,
     paddingHorizontal: 8,
-    paddingVertical: 5,
-    alignItems: 'center',
-    minWidth: 55,
+    paddingVertical: 7,
+    minWidth: 75,
   },
-  metricValue: { fontSize: 9, fontFamily: 'Helvetica-Bold', color: BLUE },
-  metricName: { fontSize: 6, color: FAINT, textTransform: 'uppercase', textAlign: 'center' },
+  metricValueRow: { flexDirection: 'row', alignItems: 'baseline' },
+  metricValue: { fontSize: 14, fontFamily: 'Helvetica-Bold', color: BLUE },
+  metricValueSuffix: { fontSize: 8, fontFamily: 'Helvetica-Bold', color: BLUE, marginLeft: 1 },
+  metricName: { fontSize: 6, color: FAINT, textTransform: 'uppercase' },
   techRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 4 },
   techTag: {
     backgroundColor: '#eff6ff',
@@ -348,17 +353,13 @@ function PdfRoleCard({ role, bullets, view, prependTitle = false, isLast = false
 }
 
 function PdfMetricBadge({ metric }) {
-  let display
-  if (metric.metric_unit === 'USD') {
-    display = formatMoney(metric.metric_value)
-  } else if (metric.metric_unit === 'percent') {
-    display = `${metric.metric_value}%`
-  } else {
-    display = String(metric.metric_value)
-  }
+  const { number, suffix } = formatMetricParts(metric.metric_value, metric.metric_unit)
   return (
     <View style={S.metricBadge} wrap={false}>
-      <Text style={S.metricValue}>{display}</Text>
+      <View style={S.metricValueRow}>
+        <Text style={S.metricValue}>{number}</Text>
+        {suffix ? <Text style={S.metricValueSuffix}>{suffix}</Text> : null}
+      </View>
       <Text style={S.metricName}>{metric.metric_name}</Text>
     </View>
   )

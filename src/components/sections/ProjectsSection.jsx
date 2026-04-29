@@ -1,17 +1,14 @@
 import { useEffect } from 'react'
+import { formatMetricParts } from '../../utils/format'
 
 function MetricBadge({ metric }) {
-  const value = typeof metric.metric_value === 'number' && metric.metric_unit === 'percent'
-    ? `${metric.metric_value}%`
-    : typeof metric.metric_value === 'number' && metric.metric_unit === 'USD'
-    ? metric.metric_value >= 1_000_000
-      ? `$${(metric.metric_value / 1_000_000).toFixed(1)}M`
-      : `$${(metric.metric_value / 1_000).toFixed(0)}K`
-    : `${metric.metric_value}${metric.metric_unit !== metric.metric_name ? ` ${metric.metric_unit}` : ''}`
+  const { number, suffix } = formatMetricParts(metric.metric_value, metric.metric_unit)
 
   return (
     <div className="metric-badge">
-      <span className="metric-value">{value}</span>
+      <span className="metric-value">
+        {number}{suffix && <span className="metric-value-suffix">{suffix}</span>}
+      </span>
       <span className="metric-name">{metric.metric_name}</span>
     </div>
   )
