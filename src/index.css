@@ -385,7 +385,7 @@ a:hover {
   top: 80px;
   background: #fff;
   z-index: 1;
-  padding-top: 12px;
+  padding-top: 15px;
   padding-bottom: 10px;
   border-bottom: 1.5px solid transparent;
   transition: border-color 0.15s ease;
