@@ -61,7 +61,7 @@ const S = StyleSheet.create({
     borderLeftColor: '#e5e7eb',
     paddingLeft: 16,
     marginLeft: -16,
-    marginBottom: 0,
+    marginBottom: 12,
     paddingBottom: 0,
   },
 
@@ -255,6 +255,7 @@ function PdfHeader({ person }) {
 
 function PdfRoleCard({ role, bullets, view, prependTitle = false, isLast = false }) {
   const isDetailed = view === 'detailed'
+  const showBullets = view === 'expanded' || view === 'detailed'
   const dates = formatDateRange(role.start_date, role.end_date, role.current_role)
   const cardStyle = isLast
     ? [S.roleCard, { borderBottomWidth: 0, paddingBottom: 0, marginBottom: 0 }]
@@ -286,7 +287,7 @@ function PdfRoleCard({ role, bullets, view, prependTitle = false, isLast = false
       </View>
 
       {/* Bullets grouped by type, sorted alphabetically — label travels with first bullet */}
-      {groupBulletsByType(bullets).map(({ type, items }) => {
+      {showBullets && groupBulletsByType(bullets).map(({ type, items }) => {
         const [first, ...rest] = items
         return (
           <View key={type} style={S.bulletGroup}>
@@ -597,13 +598,12 @@ function PdfCompanyGroup({ company, roles, bulletsByRole, view, prependTitle = f
           view={view}
         />
       </View>
-      {roles.slice(1).map((role, i) => (
+      {roles.slice(1).map(role => (
         <PdfRoleCard
           key={role.role_id}
           role={role}
           bullets={bulletsByRole[role.role_id]}
           view={view}
-          isLast={i === roles.length - 2}
         />
       ))}
     </View>
@@ -633,7 +633,6 @@ function PdfExperienceSection({ roles, resumePoints, view }) {
   return (
     <View style={S.section}>
       {companyGroups.map((group, idx) => {
-        const isLastGroup = idx === companyGroups.length - 1
         return group.roles.length === 1 ? (
           <PdfRoleCard
             key={group.roles[0].role_id}
@@ -641,7 +640,6 @@ function PdfExperienceSection({ roles, resumePoints, view }) {
             bullets={bulletsByRole[group.roles[0].role_id]}
             view={view}
             prependTitle={idx === 0}
-            isLast={isLastGroup}
           />
         ) : (
           <PdfCompanyGroup

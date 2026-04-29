@@ -94,6 +94,7 @@ function RoleBullets({ bullets }) {
 
 function RoleCard({ role, bullets, view }) {
   const isDetailed = view === 'detailed'
+  const showBullets = view === 'expanded' || view === 'detailed'
   const dates = formatDateRange(role.start_date, role.end_date, role.current_role)
 
   return (
@@ -115,7 +116,7 @@ function RoleCard({ role, bullets, view }) {
         <p className="role-summary">{role.role_summary}</p>
       )}
 
-      <RoleBullets bullets={bullets} />
+      {showBullets && <RoleBullets bullets={bullets} />}
 
       {isDetailed && (
         <>

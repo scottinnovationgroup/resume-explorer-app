@@ -7,6 +7,7 @@ import { exportToPdf } from './utils/exportPdf'
 
 const VIEWS = [
   { id: 'compact', label: 'Compact' },
+  { id: 'expanded', label: 'Expanded' },
   { id: 'detailed', label: 'Detailed' },
 ]
 

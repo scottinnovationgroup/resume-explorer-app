@@ -8,6 +8,7 @@ import IndependentProjectsSection from './sections/IndependentProjectsSection'
 
 export default function ResumeView({ data, view }) {
   const isDetailed = view === 'detailed'
+  const isExpanded = view === 'expanded'
 
   return (
     <article className="resume">

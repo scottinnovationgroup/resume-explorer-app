@@ -22,12 +22,12 @@ function fastScrollTo(targetY) {
 }
 
 const SECTION_DEFS = [
-  { id: 'experience',           label: 'Experience',     views: ['compact', 'detailed'], hasChildren: true  },
-  { id: 'projects',             label: 'Key Projects',   views: ['detailed'],            hasChildren: true  },
-  { id: 'skills',               label: 'Skills',         views: ['detailed']                                },
-  { id: 'education',            label: 'Education',      views: ['compact', 'detailed']                     },
-  { id: 'certifications',       label: 'Certifications', views: ['compact', 'detailed']                     },
-  { id: 'independent-projects', label: 'Side Projects',  views: ['detailed'],            hasChildren: true  },
+  { id: 'experience',           label: 'Experience',     views: ['compact', 'expanded', 'detailed'], hasChildren: true  },
+  { id: 'projects',             label: 'Key Projects',   views: ['detailed'],                        hasChildren: true  },
+  { id: 'skills',               label: 'Skills',         views: ['detailed']                                            },
+  { id: 'education',            label: 'Education',      views: ['compact', 'expanded', 'detailed']                     },
+  { id: 'certifications',       label: 'Certifications', views: ['compact', 'expanded', 'detailed']                     },
+  { id: 'independent-projects', label: 'Side Projects',  views: ['detailed'],                        hasChildren: true  },
 ]
 
 function buildSections(data, view) {
