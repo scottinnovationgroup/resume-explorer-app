@@ -34,24 +34,20 @@ export default function App() {
           <span className="toolbar-label">Resume Explorer</span>
           <div className="toolbar-actions">
             <ViewToggle view={view} views={VIEWS} onChange={setView} />
+            <div className="toolbar-divider" />
             <button
-              className={`export-btn${exporting ? ' exporting' : ''}`}
+              className={`export-link${exporting ? ' exporting' : ''}`}
               onClick={handleExportPdf}
               disabled={exporting}
             >
               {exporting ? (
-                <>
-                  <span className="export-spinner" aria-hidden="true" />
-                  Generating…
-                </>
+                <span className="export-spinner" aria-hidden="true" />
               ) : (
-                <>
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M8 1v9M4 7l4 4 4-4M2 13h12" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  Download PDF
-                </>
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M8 1v9M4 7l4 4 4-4M2 13h12" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               )}
+              PDF
             </button>
           </div>
         </div>
