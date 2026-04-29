@@ -100,24 +100,24 @@ const S = StyleSheet.create({
   tagText: { fontSize: 7, color: '#475569' },
 
   // Projects
-  projectGroup: { marginBottom: 14 },
+  projectGroup: {
+    borderLeftWidth: 1.5,
+    borderLeftColor: '#e5e7eb',
+    paddingLeft: 16,
+    marginLeft: -16,
+    marginBottom: 22,
+  },
   projectGroupLabel: { fontSize: 8, fontFamily: 'Helvetica-Bold', color: MED, marginBottom: 7 },
   projectGroupCompany: { fontFamily: 'Helvetica', color: FAINT },
   projectCard: {
-    marginBottom: 9,
-    paddingLeft: 7,
-    paddingTop: 7,
-    paddingBottom: 7,
-    paddingRight: 7,
-    borderLeftWidth: 2,
-    borderLeftColor: '#93c5fd',
-    backgroundColor: '#fafafa',
+    marginBottom: 14,
+    gap: 10,
   },
-  projectCardHeader: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'baseline', marginBottom: 4 },
+  projectCardHeader: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'baseline' },
   projectName: { fontSize: 9, fontFamily: 'Helvetica-Bold', color: DARK, marginRight: 7 },
   projectType: { fontSize: 7.5, color: FAINT },
   projectSummary: { fontSize: 8, color: '#4b5563', lineHeight: 1.6 },
-  metricsRow: { flexDirection: 'row', flexWrap: 'wrap', marginTop: 6 },
+  metricsRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 5 },
   metricBadge: {
     backgroundColor: '#fff',
     borderWidth: 0.75,
@@ -126,21 +126,16 @@ const S = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 5,
     alignItems: 'center',
-    marginRight: 6,
-    marginBottom: 4,
     minWidth: 55,
   },
   metricValue: { fontSize: 9, fontFamily: 'Helvetica-Bold', color: BLUE },
   metricName: { fontSize: 6, color: FAINT, textTransform: 'uppercase', textAlign: 'center' },
-  outcomeText: { fontSize: 8, color: '#4b5563', lineHeight: 1.55, marginBottom: 2, marginTop: 5 },
-  techRow: { flexDirection: 'row', flexWrap: 'wrap', marginTop: 5 },
+  techRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 4 },
   techTag: {
     backgroundColor: '#eff6ff',
     borderRadius: 10,
     paddingHorizontal: 5,
     paddingVertical: 1.5,
-    marginRight: 4,
-    marginBottom: 3,
   },
   techTagText: { fontSize: 7, color: '#1d4ed8' },
 
@@ -374,9 +369,16 @@ function PdfProjectCard({ project }) {
           {project.metrics.map(m => <PdfMetricBadge key={m.metric_name} metric={m} />)}
         </View>
       )}
-      {project.outcomes?.length > 0 && project.outcomes.map(o => (
-        <Text key={o} style={S.outcomeText}>• {o}</Text>
-      ))}
+      {project.outcomes?.length > 0 && (
+        <View>
+          {project.outcomes.map(o => (
+            <View key={o} style={S.bulletRow} wrap={false}>
+              <Text style={S.bulletDash}>–</Text>
+              <Text style={S.bulletText}>{o}</Text>
+            </View>
+          ))}
+        </View>
+      )}
       {project.technologies?.length > 0 && (
         <View style={S.techRow}>
           {project.technologies.map(t => (

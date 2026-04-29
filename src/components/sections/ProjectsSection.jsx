@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 function MetricBadge({ metric }) {
   const value = typeof metric.metric_value === 'number' && metric.metric_unit === 'percent'
     ? `${metric.metric_value}%`
@@ -52,8 +54,6 @@ function ProjectCard({ project }) {
 }
 
 export default function ProjectsSection({ projects, roles }) {
-  // Group projects by their primary role (first role_id)
-  const roleMap = Object.fromEntries(roles.map(r => [r.role_id, r]))
   const rolesSorted = [...roles].sort((a, b) => b.start_date.localeCompare(a.start_date))
 
   const projectsByRole = {}
@@ -63,6 +63,24 @@ export default function ProjectsSection({ projects, roles }) {
     projectsByRole[primaryRoleId].push(p)
   })
 
+  // Toggle .is-stuck on each role label when its sentinel scrolls past
+  // the sticky offset (toolbar + section-title height ≈ 80px).
+  useEffect(() => {
+    const sentinels = document.querySelectorAll('.projects-role-sentinel')
+    if (!sentinels.length) return
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          const label = entry.target.nextElementSibling
+          label?.classList.toggle('is-stuck', !entry.isIntersecting)
+        })
+      },
+      { rootMargin: '-80px 0px 0px 0px', threshold: 0 }
+    )
+    sentinels.forEach(s => observer.observe(s))
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <section className="resume-section">
       <h2 className="section-title">Key Projects</h2>
@@ -71,6 +89,7 @@ export default function ProjectsSection({ projects, roles }) {
         if (!roleProjects?.length) return null
         return (
           <div key={role.role_id} className="projects-role-group">
+            <div className="projects-role-sentinel" />
             <div className="projects-role-label">
               {role.title} <span className="projects-role-company">· {role.company}</span>
             </div>

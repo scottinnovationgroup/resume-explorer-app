@@ -363,29 +363,44 @@ a:hover {
 
 /* ─── Projects Section ────────────────────────────────────────── */
 .projects-role-group {
-  margin-bottom: 24px;
+  border-left: 1.5px solid #e5e7eb;
+  padding-left: 22px;
+  margin-left: -22px;
+  margin-bottom: 36px;
 }
 .projects-role-group:last-child {
   margin-bottom: 0;
+}
+.projects-role-sentinel {
+  height: 0;
+  visibility: hidden;
 }
 .projects-role-label {
   font-size: 0.8125rem;
   font-weight: 600;
   color: #374151;
   margin-bottom: 12px;
-  padding-bottom: 4px;
+  position: sticky;
+  top: 80px;
+  background: #fff;
+  z-index: 1;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color 0.15s ease;
+}
+.projects-role-label.is-stuck {
+  border-bottom-color: #e5e7eb;
 }
 .projects-role-company {
   font-weight: 400;
   color: #9ca3af;
 }
 .project-card {
-  margin-bottom: 16px;
-  padding: 14px 16px;
-  border: 1px solid #e5e7eb;
-  border-left: 3px solid #93c5fd;
-  border-radius: 0 6px 6px 0;
-  background: #fafafa;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
 }
 .project-card:last-child {
   margin-bottom: 0;
@@ -395,7 +410,6 @@ a:hover {
   align-items: baseline;
   gap: 10px;
   flex-wrap: wrap;
-  margin-bottom: 6px;
 }
 .project-name {
   font-size: 0.875rem;
@@ -416,7 +430,6 @@ a:hover {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 10px;
 }
 .metric-badge {
   display: flex;
@@ -443,21 +456,30 @@ a:hover {
   text-align: center;
 }
 .project-outcomes {
-  margin-top: 8px;
-  padding-left: 16px;
-  list-style: disc;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 .project-outcomes li {
   font-size: 0.8125rem;
   color: #4b5563;
   line-height: 1.55;
-  margin-bottom: 2px;
+  padding-left: 14px;
+  position: relative;
+}
+.project-outcomes li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: #9ca3af;
 }
 .project-tech {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
-  margin-top: 8px;
 }
 
 /* ─── Skills ──────────────────────────────────────────────────── */
