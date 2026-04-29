@@ -137,6 +137,21 @@ function RoleCard({ role, bullets, view }) {
   )
 }
 
+function CompanyGroup({ company, roles, bulletsByRole, view }) {
+  return (
+    <div className="company-group">
+      {roles.map(role => (
+        <RoleCard
+          key={role.role_id}
+          role={role}
+          bullets={bulletsByRole[role.role_id]}
+          view={view}
+        />
+      ))}
+    </div>
+  )
+}
+
 export default function ExperienceSection({ roles, resumePoints, view }) {
   const sorted = [...roles].sort((a, b) => b.start_date.localeCompare(a.start_date))
 
@@ -146,17 +161,38 @@ export default function ExperienceSection({ roles, resumePoints, view }) {
     bulletsByRole[p.role_id].push(p)
   })
 
+  // Group consecutive same-company roles
+  const companyGroups = []
+  for (const role of sorted) {
+    const last = companyGroups[companyGroups.length - 1]
+    if (last && last.company === role.company) {
+      last.roles.push(role)
+    } else {
+      companyGroups.push({ company: role.company, roles: [role] })
+    }
+  }
+
   return (
     <section className="resume-section">
       <h2 className="section-title">Experience</h2>
-      {sorted.map(role => (
-        <RoleCard
-          key={role.role_id}
-          role={role}
-          bullets={bulletsByRole[role.role_id]}
-          view={view}
-        />
-      ))}
+      {companyGroups.map(group =>
+        group.roles.length === 1 ? (
+          <RoleCard
+            key={group.roles[0].role_id}
+            role={group.roles[0]}
+            bullets={bulletsByRole[group.roles[0].role_id]}
+            view={view}
+          />
+        ) : (
+          <CompanyGroup
+            key={group.company}
+            company={group.company}
+            roles={group.roles}
+            bulletsByRole={bulletsByRole}
+            view={view}
+          />
+        )
+      )}
     </section>
   )
 }

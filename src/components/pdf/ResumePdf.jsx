@@ -52,9 +52,17 @@ const S = StyleSheet.create({
   roleCard: {
     marginBottom: 12,
     paddingBottom: 12,
-    borderBottomWidth: 0.75,
-    borderBottomColor: SOFT,
+    gap: 8,
   },
+  companyGroup: {
+    borderLeftWidth: 1.5,
+    borderLeftColor: '#e5e7eb',
+    paddingLeft: 16,
+    marginLeft: -16,
+    marginBottom: 0,
+    paddingBottom: 0,
+  },
+
   roleHeader: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 3 },
   roleLeft: { flex: 1, paddingRight: 10 },
   roleRight: { alignItems: 'flex-end', flexShrink: 0 },
@@ -65,7 +73,7 @@ const S = StyleSheet.create({
   roleSummary: { fontSize: 8.5, color: MED, lineHeight: 1.65, marginTop: 5 },
 
   // Bullet points
-  bulletGroup: { marginTop: 6 },
+  bulletGroup: {},
   bulletTypeLabel: {
     fontSize: 6,
     fontFamily: 'Helvetica-Bold',
@@ -80,16 +88,14 @@ const S = StyleSheet.create({
   bulletText: { fontSize: 8.5, color: MED, lineHeight: 1.6, flex: 1 },
 
   // Detailed extras
-  metaBlock: { fontSize: 8, color: LIGHT, marginTop: 4, lineHeight: 1.5 },
+  metaBlock: { fontSize: 8, color: LIGHT, lineHeight: 1.5 },
   metaBold: { fontFamily: 'Helvetica-Bold', color: MED },
-  tagsRow: { flexDirection: 'row', flexWrap: 'wrap', marginTop: 6 },
+  tagsRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 5 },
   tag: {
     backgroundColor: '#f1f5f9',
     borderRadius: 12,
     paddingHorizontal: 5,
     paddingVertical: 2,
-    marginRight: 4,
-    marginBottom: 4,
   },
   tagText: { fontSize: 7, color: '#475569' },
 
@@ -562,6 +568,29 @@ function PdfFooter() {
   )
 }
 
+function PdfCompanyGroup({ company, roles, bulletsByRole, view, prependTitle = false }) {
+  return (
+    <View style={S.companyGroup}>
+      <View wrap={false}>
+        {prependTitle && <Text style={S.sectionTitle}>Experience</Text>}
+        <PdfRoleCard
+          role={roles[0]}
+          bullets={bulletsByRole[roles[0].role_id]}
+          view={view}
+        />
+      </View>
+      {roles.slice(1).map(role => (
+        <PdfRoleCard
+          key={role.role_id}
+          role={role}
+          bullets={bulletsByRole[role.role_id]}
+          view={view}
+        />
+      ))}
+    </View>
+  )
+}
+
 function PdfExperienceSection({ roles, resumePoints, view }) {
   const sorted = [...roles].sort((a, b) => b.start_date.localeCompare(a.start_date))
 
@@ -571,17 +600,39 @@ function PdfExperienceSection({ roles, resumePoints, view }) {
     bulletsByRole[p.role_id].push(p)
   })
 
+  // Group consecutive same-company roles
+  const companyGroups = []
+  for (const role of sorted) {
+    const last = companyGroups[companyGroups.length - 1]
+    if (last && last.company === role.company) {
+      last.roles.push(role)
+    } else {
+      companyGroups.push({ company: role.company, roles: [role] })
+    }
+  }
+
   return (
     <View style={S.section}>
-      {sorted.map((role, idx) => (
-        <PdfRoleCard
-          key={role.role_id}
-          role={role}
-          bullets={bulletsByRole[role.role_id]}
-          view={view}
-          prependTitle={idx === 0}
-        />
-      ))}
+      {companyGroups.map((group, idx) =>
+        group.roles.length === 1 ? (
+          <PdfRoleCard
+            key={group.roles[0].role_id}
+            role={group.roles[0]}
+            bullets={bulletsByRole[group.roles[0].role_id]}
+            view={view}
+            prependTitle={idx === 0}
+          />
+        ) : (
+          <PdfCompanyGroup
+            key={group.company}
+            company={group.company}
+            roles={group.roles}
+            bulletsByRole={bulletsByRole}
+            view={view}
+            prependTitle={idx === 0}
+          />
+        )
+      )}
     </View>
   )
 }
