@@ -217,6 +217,7 @@ a:hover {
 .role-card {
   margin-bottom: 22px;
   padding-bottom: 22px;
+  border-bottom: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -384,7 +385,7 @@ a:hover {
   top: 80px;
   background: #fff;
   z-index: 1;
-  padding-top: 10px;
+  padding-top: 12px;
   padding-bottom: 10px;
   border-bottom: 1.5px solid transparent;
   transition: border-color 0.15s ease;
@@ -401,9 +402,13 @@ a:hover {
   flex-direction: column;
   gap: 14px;
   margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e5e7eb;
 }
 .project-card:last-child {
+  border-bottom: none;
   margin-bottom: 0;
+  padding-bottom: 0;
 }
 .project-card-header {
   display: flex;
@@ -559,7 +564,7 @@ a:hover {
 .indie-project-card {
   margin-bottom: 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid #e5e7eb;
 }
 .indie-project-card:last-child {
   border-bottom: none;

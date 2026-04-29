@@ -8,7 +8,7 @@ const MED    = '#374151'
 const LIGHT  = '#6b7280'
 const FAINT  = '#9ca3af'
 const BORDER = '#e5e7eb'
-const SOFT   = '#f3f4f6'
+const SOFT   = '#e5e7eb'
 
 // ─── Styles ───────────────────────────────────────────────────────────────────
 const S = StyleSheet.create({
@@ -52,6 +52,8 @@ const S = StyleSheet.create({
   roleCard: {
     marginBottom: 12,
     paddingBottom: 12,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#e5e7eb',
     gap: 8,
   },
   companyGroup: {
@@ -111,6 +113,9 @@ const S = StyleSheet.create({
   projectGroupCompany: { fontFamily: 'Helvetica', color: FAINT },
   projectCard: {
     marginBottom: 14,
+    paddingBottom: 14,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#e5e7eb',
     gap: 10,
   },
   projectCardHeader: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'baseline' },
@@ -241,13 +246,16 @@ function PdfHeader({ person }) {
   )
 }
 
-function PdfRoleCard({ role, bullets, view, prependTitle = false }) {
+function PdfRoleCard({ role, bullets, view, prependTitle = false, isLast = false }) {
   const isDetailed = view === 'detailed'
   const dates = formatDateRange(role.start_date, role.end_date, role.current_role)
+  const cardStyle = isLast
+    ? [S.roleCard, { borderBottomWidth: 0, paddingBottom: 0, marginBottom: 0 }]
+    : S.roleCard
 
   return (
     // Outer card can span pages — individual bullets are the atomic units.
-    <View style={S.roleCard}>
+    <View style={cardStyle}>
       {/*
         Header + summary stay together.
         When prependTitle is true this block also carries the section title,
@@ -356,9 +364,12 @@ function PdfMetricBadge({ metric }) {
   )
 }
 
-function PdfProjectCard({ project }) {
+function PdfProjectCard({ project, isLast = false }) {
+  const cardStyle = isLast
+    ? [S.projectCard, { borderBottomWidth: 0, paddingBottom: 0, marginBottom: 0 }]
+    : S.projectCard
   return (
-    <View style={S.projectCard} wrap={false}>
+    <View style={cardStyle} wrap={false}>
       <View style={S.projectCardHeader}>
         <Text style={S.projectName}>{project.project_name}</Text>
         <Text style={S.projectType}>{project.project_type}</Text>
@@ -420,9 +431,11 @@ function PdfProjectsSection({ projects, roles }) {
                 {role.title}
                 <Text style={S.projectGroupCompany}> · {role.company}</Text>
               </Text>
-              <PdfProjectCard project={firstCard} />
+              <PdfProjectCard project={firstCard} isLast={restCards.length === 0} />
             </View>
-            {restCards.map(p => <PdfProjectCard key={p.project_id} project={p} />)}
+            {restCards.map((p, i) => (
+              <PdfProjectCard key={p.project_id} project={p} isLast={i === restCards.length - 1} />
+            ))}
           </View>
         )
       })}
@@ -581,12 +594,13 @@ function PdfCompanyGroup({ company, roles, bulletsByRole, view, prependTitle = f
           view={view}
         />
       </View>
-      {roles.slice(1).map(role => (
+      {roles.slice(1).map((role, i) => (
         <PdfRoleCard
           key={role.role_id}
           role={role}
           bullets={bulletsByRole[role.role_id]}
           view={view}
+          isLast={i === roles.length - 2}
         />
       ))}
     </View>
@@ -615,14 +629,16 @@ function PdfExperienceSection({ roles, resumePoints, view }) {
 
   return (
     <View style={S.section}>
-      {companyGroups.map((group, idx) =>
-        group.roles.length === 1 ? (
+      {companyGroups.map((group, idx) => {
+        const isLastGroup = idx === companyGroups.length - 1
+        return group.roles.length === 1 ? (
           <PdfRoleCard
             key={group.roles[0].role_id}
             role={group.roles[0]}
             bullets={bulletsByRole[group.roles[0].role_id]}
             view={view}
             prependTitle={idx === 0}
+            isLast={isLastGroup}
           />
         ) : (
           <PdfCompanyGroup
@@ -634,7 +650,7 @@ function PdfExperienceSection({ roles, resumePoints, view }) {
             prependTitle={idx === 0}
           />
         )
-      )}
+      })}
     </View>
   )
 }
