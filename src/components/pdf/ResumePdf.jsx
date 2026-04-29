@@ -58,7 +58,7 @@ const S = StyleSheet.create({
   },
   companyGroup: {
     borderLeftWidth: 1.5,
-    borderLeftColor: '#e5e7eb',
+    borderLeftColor: '#bfdbfe',
     paddingLeft: 16,
     marginLeft: -16,
     marginBottom: 12,
