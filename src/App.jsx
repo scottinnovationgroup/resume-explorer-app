@@ -9,15 +9,28 @@ import { exportToPdf } from './utils/exportPdf'
 const configs = import.meta.glob(['./config.js', './sample.config.js'], { eager: true })
 
 let resumeData = null
+let configOptions = {}
 let configStatus = 'missing' // 'ok' | 'fallback' | 'missing'
 
 if ('./config.js' in configs) {
   resumeData = configs['./config.js'].default
+  configOptions = configs['./config.js'].options ?? {}
   configStatus = 'ok'
 } else if ('./sample.config.js' in configs) {
   resumeData = configs['./sample.config.js'].default
+  configOptions = configs['./sample.config.js'].options ?? {}
   configStatus = 'fallback'
 }
+
+const { showBrandIcon = true, showBrandTitle = true } = configOptions
+const showAnything = showBrandIcon || showBrandTitle
+
+// ─── Page title ────────────────────────────────────────────────────────────────
+document.title = [
+  resumeData?.person?.name,
+  resumeData?.person?.headline,
+  'Resume Explorer',
+].filter(Boolean).join(' – ')
 
 // ─── Config banner ─────────────────────────────────────────────────────────────
 function ConfigBanner() {
@@ -91,20 +104,24 @@ export default function App() {
       <div className="app-toolbar">
         <div className="toolbar-inner">
           <div className="toolbar-brand">
-            <span className="toolbar-brand-title">
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M3 1h7l4 4v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round"/>
-                <path d="M10 1v4h4" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round"/>
-                <line x1="4" y1="8" x2="12" y2="8" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
-                <line x1="4" y1="10.5" x2="10" y2="10.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
-                <circle cx="11.5" cy="12.5" r="1.75" stroke="currentColor" strokeWidth="1.25"/>
-                <line x1="12.8" y1="13.8" x2="14.5" y2="15.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
-              </svg>
-              <span className="toolbar-label">Resume Explorer</span>
-            </span>
+            {(showBrandIcon || showBrandTitle) && (
+              <span className="toolbar-brand-title">
+                {showBrandIcon && (
+                  <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 1h7l4 4v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round"/>
+                    <path d="M10 1v4h4" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round"/>
+                    <line x1="4" y1="8" x2="12" y2="8" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+                    <line x1="4" y1="10.5" x2="10" y2="10.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+                    <circle cx="11.5" cy="12.5" r="1.75" stroke="currentColor" strokeWidth="1.25"/>
+                    <line x1="12.8" y1="13.8" x2="14.5" y2="15.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+                  </svg>
+                )}
+                {showBrandTitle && <span className="toolbar-label">Resume Explorer</span>}
+              </span>
+            )}
             {resumeData.person?.name && (
               <>
-                <span className="toolbar-brand-sep" />
+                {showAnything && <span className="toolbar-brand-sep" />}
                 <span className="toolbar-person-name">{resumeData.person.name}</span>
               </>
             )}

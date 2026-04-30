@@ -13,3 +13,9 @@
 import resumeData from './data/sample.json'
 
 export default resumeData
+
+// ─── App Options ───────────────────────────────────────────────────────────────
+export const options = {
+  showBrandIcon:  true,  // Show/hide the document icon next to the brand
+  showBrandTitle: true,  // Show/hide the "Resume Explorer" label
+}
