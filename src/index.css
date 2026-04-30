@@ -27,6 +27,35 @@ a:hover {
   flex-direction: column;
 }
 
+/* ─── Config Banner ───────────────────────────────────────────── */
+.config-banner {
+  padding: 10px 24px;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+.config-banner code {
+  font-family: ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 0.8em;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+.config-banner--warning {
+  background: #fffbeb;
+  color: #92400e;
+  border-bottom: 1px solid #fde68a;
+}
+.config-banner--warning code {
+  background: #fef3c7;
+}
+.config-banner--error {
+  background: #fef2f2;
+  color: #991b1b;
+  border-bottom: 1px solid #fecaca;
+}
+.config-banner--error code {
+  background: #fee2e2;
+}
+
 .app-toolbar {
   background: #fff;
   border-bottom: 1px solid #e5e7eb;

@@ -1,0 +1,273 @@
+{
+  "person": {
+    "name": "Alex Rivera",
+    "headline": "Principal Software Engineer & Technical Lead",
+    "location": {
+      "display": "Austin, TX"
+    },
+    "contact": {
+      "email": "alex.rivera@example.com",
+      "phone": "(512) 555-0192"
+    },
+    "links": [
+      { "type": "linkedin", "url": "https://linkedin.com/in/alexrivera" },
+      { "type": "github",   "url": "https://github.com/alexrivera" }
+    ]
+  },
+
+  "roles": [
+    {
+      "role_id": "r1",
+      "title": "Principal Engineer",
+      "company": "Apex Cloud Solutions",
+      "start_date": "2022-03",
+      "end_date": null,
+      "current_role": true,
+      "location": "Austin, TX (Remote)",
+      "role_summary": "Lead platform engineering strategy across a suite of cloud-native products serving 2M+ users. Partner with product and infrastructure teams to define technical roadmap, establish engineering standards, and mentor a growing team of engineers.",
+      "management_scope": {
+        "team_size_direct_reports": 6,
+        "team_size_supported_or_mentored": 18
+      },
+      "primary_themes": ["Platform Engineering", "Developer Experience", "Cloud Infrastructure"]
+    },
+    {
+      "role_id": "r2",
+      "title": "Senior Software Engineer",
+      "company": "Apex Cloud Solutions",
+      "start_date": "2020-01",
+      "end_date": "2022-02",
+      "current_role": false,
+      "location": "Austin, TX",
+      "role_summary": "Designed and delivered core API infrastructure supporting internal and external product integrations. Drove adoption of microservices patterns and championed observability improvements across the engineering org.",
+      "primary_themes": ["API Design", "Microservices", "Performance Optimization"]
+    },
+    {
+      "role_id": "r3",
+      "title": "Software Engineer II",
+      "company": "Brightwave Technologies",
+      "start_date": "2017-06",
+      "end_date": "2019-12",
+      "current_role": false,
+      "location": "Denver, CO",
+      "role_summary": "Built and maintained backend services for a portfolio of client-facing data products. Coordinated delivery across multiple customer accounts and contributed to contract scoping and technical solutioning.",
+      "contract_context": {
+        "client": "RetailMax Inc.",
+        "contract_value": 1500000,
+        "period_of_performance": "18 months"
+      },
+      "delivery_scope": {
+        "portfolio_projects_tracked": 12,
+        "total_contract_value": 4200000,
+        "customer_accounts": ["RetailMax", "HealthBridge", "LogiTrack"]
+      },
+      "primary_themes": ["Client Delivery", "Data Products", "Backend Services"]
+    },
+    {
+      "role_id": "r4",
+      "title": "Junior Software Developer",
+      "company": "CodeCraft Studio",
+      "start_date": "2015-08",
+      "end_date": "2017-05",
+      "current_role": false,
+      "location": "Denver, CO",
+      "role_summary": "Developed web features and internal tooling for a small product studio serving early-stage startups. Gained hands-on experience across the full stack in a fast-paced environment."
+    }
+  ],
+
+  "resume_points": [
+    {
+      "bullet_id": "b1",
+      "role_id": "r1",
+      "bullet_type": "achievement",
+      "bullet_text": "Reduced average API response latency by 42% by redesigning the internal gateway routing layer and introducing edge caching.",
+      "status": "approved"
+    },
+    {
+      "bullet_id": "b2",
+      "role_id": "r1",
+      "bullet_type": "achievement",
+      "bullet_text": "Consolidated 14 independently deployed microservices into a unified platform, cutting infrastructure costs by $380K annually.",
+      "status": "approved"
+    },
+    {
+      "bullet_id": "b3",
+      "role_id": "r1",
+      "bullet_type": "leadership",
+      "bullet_text": "Established an engineering guild model and bi-weekly tech talks that improved cross-team knowledge sharing and reduced repeated incidents by 35%.",
+      "status": "approved"
+    },
+    {
+      "bullet_id": "b4",
+      "role_id": "r1",
+      "bullet_type": "leadership",
+      "bullet_text": "Defined and rolled out a tiered on-call rotation for a team of 18 engineers, reducing mean time to acknowledge (MTTA) alerts from 22 minutes to under 4.",
+      "status": "approved"
+    },
+    {
+      "bullet_id": "b5",
+      "role_id": "r2",
+      "bullet_type": "achievement",
+      "bullet_text": "Delivered a public REST and GraphQL API gateway handling 8M+ requests per day with 99.97% uptime.",
+      "status": "approved"
+    },
+    {
+      "bullet_id": "b6",
+      "role_id": "r2",
+      "bullet_type": "achievement",
+      "bullet_text": "Re-architected a monolithic billing service into three independently deployable services, reducing deployment cycle time from 2 hours to 12 minutes.",
+      "status": "approved"
+    },
+    {
+      "bullet_id": "b7",
+      "role_id": "r2",
+      "bullet_type": "leadership",
+      "bullet_text": "Mentored 3 mid-level engineers through structured growth plans; all 3 were promoted within 18 months.",
+      "status": "approved"
+    },
+    {
+      "bullet_id": "b8",
+      "role_id": "r3",
+      "bullet_type": "achievement",
+      "bullet_text": "Built an inventory sync engine that reconciled 5M+ SKUs daily across three retail systems with sub-2-minute lag.",
+      "status": "approved"
+    },
+    {
+      "bullet_id": "b9",
+      "role_id": "r3",
+      "bullet_type": "achievement",
+      "bullet_text": "Migrated legacy ETL pipeline from nightly batch jobs to a streaming architecture, improving data freshness from 24 hours to under 10 minutes.",
+      "status": "approved"
+    },
+    {
+      "bullet_id": "b10",
+      "role_id": "r4",
+      "bullet_type": "achievement",
+      "bullet_text": "Shipped a client-facing dashboard that condensed a 6-step manual reporting workflow into a single-page view, saving each client an estimated 3 hours per week.",
+      "status": "approved"
+    }
+  ],
+
+  "projects": [
+    {
+      "project_id": "p1",
+      "project_name": "Unified API Gateway",
+      "project_type": "Platform",
+      "role_ids": ["r1"],
+      "summary": "Designed and implemented a centralized API gateway to replace a fragmented set of service-to-service integrations. The gateway enforces auth, rate limiting, and observability for all internal and external traffic.",
+      "metrics": [
+        { "metric_name": "Daily Requests", "metric_value": 8000000, "metric_unit": "count" },
+        { "metric_name": "Latency Reduction", "metric_value": 42, "metric_unit": "percent" },
+        { "metric_name": "Cost Savings", "metric_value": 380000, "metric_unit": "USD" }
+      ],
+      "outcomes": [
+        "Consolidated routing for 14 previously independent services",
+        "Enabled product teams to ship integrations 3x faster",
+        "Reduced security incident surface area by standardizing auth across all endpoints"
+      ],
+      "technologies": ["Go", "Envoy", "Kubernetes", "AWS", "Prometheus", "Grafana"]
+    },
+    {
+      "project_id": "p2",
+      "project_name": "Real-Time Analytics Pipeline",
+      "project_type": "Data Engineering",
+      "role_ids": ["r2"],
+      "summary": "Built an event-driven analytics pipeline to replace nightly batch reporting with near-real-time dashboards for product and growth teams.",
+      "metrics": [
+        { "metric_name": "Data Freshness", "metric_value": 90, "metric_unit": "seconds" },
+        { "metric_name": "Events Per Day", "metric_value": 24000000, "metric_unit": "count" },
+        { "metric_name": "Previous Lag", "metric_value": 24, "metric_unit": "hours" }
+      ],
+      "outcomes": [
+        "Replaced 4 separate nightly jobs with a single streaming pipeline",
+        "Enabled same-day product decisions previously impossible with batch data",
+        "Adopted as the standard analytics pattern across 6 other product teams"
+      ],
+      "technologies": ["Kafka", "Apache Flink", "Python", "Snowflake", "dbt", "Airflow"]
+    },
+    {
+      "project_id": "p3",
+      "project_name": "Inventory Sync Engine",
+      "project_type": "Backend Service",
+      "role_ids": ["r3"],
+      "summary": "Developed a high-throughput inventory reconciliation service that synchronized product and stock data across three disparate retail systems for a major enterprise client.",
+      "metrics": [
+        { "metric_name": "SKUs Synced Daily", "metric_value": 5000000, "metric_unit": "count" },
+        { "metric_name": "Sync Lag", "metric_value": 2, "metric_unit": "minutes" },
+        { "metric_name": "Error Rate", "metric_value": 0.003, "metric_unit": "percent" }
+      ],
+      "outcomes": [
+        "Eliminated manual reconciliation process that previously required a full-time analyst",
+        "Reduced out-of-stock incidents by 28% in the first quarter post-launch",
+        "Extended contract by 12 months due to client satisfaction"
+      ],
+      "technologies": ["Node.js", "PostgreSQL", "Redis", "RabbitMQ", "Docker"]
+    }
+  ],
+
+  "skills_catalog": [
+    { "skill_name": "TypeScript",      "skill_category": "Languages" },
+    { "skill_name": "Python",          "skill_category": "Languages" },
+    { "skill_name": "Go",              "skill_category": "Languages" },
+    { "skill_name": "SQL",             "skill_category": "Languages" },
+    { "skill_name": "React",           "skill_category": "Frameworks & Libraries" },
+    { "skill_name": "Node.js",         "skill_category": "Frameworks & Libraries" },
+    { "skill_name": "FastAPI",         "skill_category": "Frameworks & Libraries" },
+    { "skill_name": "gRPC",            "skill_category": "Frameworks & Libraries" },
+    { "skill_name": "AWS",             "skill_category": "Cloud & DevOps" },
+    { "skill_name": "Terraform",       "skill_category": "Cloud & DevOps" },
+    { "skill_name": "Docker",          "skill_category": "Cloud & DevOps" },
+    { "skill_name": "Kubernetes",      "skill_category": "Cloud & DevOps" },
+    { "skill_name": "PostgreSQL",      "skill_category": "Data" },
+    { "skill_name": "Redis",           "skill_category": "Data" },
+    { "skill_name": "Kafka",           "skill_category": "Data" },
+    { "skill_name": "Snowflake",       "skill_category": "Data" }
+  ],
+
+  "education": [
+    {
+      "education_id": "e1",
+      "degree": "Bachelor of Science",
+      "degree_abbreviation": "B.S.",
+      "institution": "University of Colorado",
+      "location": "Boulder, CO",
+      "field_of_study": "Computer Science"
+    }
+  ],
+
+  "certifications": [
+    {
+      "certification_id": "c1",
+      "certification_name": "AWS Certified Solutions Architect – Professional",
+      "certification_abbreviation": "SAP-C02",
+      "issuing_organization": "Amazon Web Services",
+      "credential_id": "AWS-SAP-00291847"
+    },
+    {
+      "certification_id": "c2",
+      "certification_name": "Google Cloud Professional Data Engineer",
+      "certification_abbreviation": "PDE",
+      "issuing_organization": "Google Cloud",
+      "credential_id": "GCP-PDE-00483721"
+    }
+  ],
+
+  "independent_projects": [
+    {
+      "independent_project_id": "ip1",
+      "project_name": "PullPulse",
+      "project_type": "Developer Tool",
+      "summary": "An open-source GitHub App that surfaces PR review bottlenecks and cycle time trends for engineering teams. Generates weekly digests and integrates with Slack.",
+      "website": "https://pullpulse.dev",
+      "target_users": ["Engineering Managers", "Tech Leads", "Platform Teams"]
+    },
+    {
+      "independent_project_id": "ip2",
+      "project_name": "StackMap",
+      "project_type": "SaaS",
+      "summary": "A lightweight tool for documenting and visualizing internal tech stacks. Teams can tag services, map dependencies, and export architecture diagrams.",
+      "website": "https://stackmap.io",
+      "target_users": ["Software Engineers", "Architects", "Engineering Leaders"]
+    }
+  ]
+}

@@ -3,3 +3,4 @@ resume_explorer_model.json
 /dist
 /node_modules
 /.claude
+src/config.js

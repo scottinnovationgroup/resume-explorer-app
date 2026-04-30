@@ -1,12 +1,46 @@
 import { useState } from 'react'
-import resumeData from '../resume_explorer_model.json'
 import ViewToggle from './components/ViewToggle'
 import ResumeView from './components/ResumeView'
 import SectionNav from './components/SectionNav'
 import { exportToPdf } from './utils/exportPdf'
 
+// ─── Config resolution ─────────────────────────────────────────────────────────
+// Vite resolves this glob at build time — only files that actually exist are included.
+const configs = import.meta.glob(['./config.js', './sample.config.js'], { eager: true })
+
+let resumeData = null
+let configStatus = 'missing' // 'ok' | 'fallback' | 'missing'
+
+if ('./config.js' in configs) {
+  resumeData = configs['./config.js'].default
+  configStatus = 'ok'
+} else if ('./sample.config.js' in configs) {
+  resumeData = configs['./sample.config.js'].default
+  configStatus = 'fallback'
+}
+
+// ─── Config banner ─────────────────────────────────────────────────────────────
+function ConfigBanner() {
+  if (configStatus === 'ok') return null
+
+  if (configStatus === 'missing') {
+    return (
+      <div className="config-banner config-banner--error">
+        No config file found. Add <code>src/config.js</code> or restore <code>src/sample.config.js</code>.
+      </div>
+    )
+  }
+
+  return (
+    <div className="config-banner config-banner--warning">
+      Using sample data. Copy <code>sample.config.js</code> → <code>config.js</code> and point it at your own data file to get started.
+    </div>
+  )
+}
+
+// ─── Views ─────────────────────────────────────────────────────────────────────
 const VIEWS = [
-  { id: 'compact', label: 'Compact' },
+  { id: 'compact',  label: 'Compact'  },
   { id: 'expanded', label: 'Expanded' },
   { id: 'detailed', label: 'Detailed' },
 ]
@@ -18,6 +52,7 @@ function getInitialView() {
   return VALID_VIEWS.has(param) ? param : 'compact'
 }
 
+// ─── App ───────────────────────────────────────────────────────────────────────
 export default function App() {
   const [view, setView] = useState(getInitialView)
   const [exporting, setExporting] = useState(false)
@@ -34,16 +69,25 @@ export default function App() {
     setExporting(true)
     try {
       await exportToPdf(resumeData, view, {
-        personName: resumeData.person.name,
+        personName: resumeData?.person?.name,
       })
     } finally {
       setExporting(false)
     }
   }
 
+  if (configStatus === 'missing') {
+    return (
+      <div className="app">
+        <ConfigBanner />
+      </div>
+    )
+  }
+
   return (
     <div className="app">
       <SectionNav view={view} data={resumeData} />
+      <ConfigBanner />
       <div className="app-toolbar">
         <div className="toolbar-inner">
           <div className="toolbar-brand">
