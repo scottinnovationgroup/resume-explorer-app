@@ -154,7 +154,7 @@ export default function App() {
         <span className="footer-sep">·</span>
         <span className="footer-credit">Built by Brandon Scott</span>
         <a
-          href="#"
+          href="https://github.com/scottinnovationgroup/resume-explorer-app"
           target="_blank"
           rel="noopener noreferrer"
           className="footer-github"
