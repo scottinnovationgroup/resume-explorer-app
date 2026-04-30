@@ -3,4 +3,5 @@ resume_explorer_model.json
 /dist
 /node_modules
 /.claude
+/data/bscott.json
 src/config.js
