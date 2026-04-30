@@ -75,6 +75,12 @@ a:hover {
   align-items: center;
   gap: 10px;
 }
+.toolbar-brand-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6b7280;
+}
 .toolbar-person-name {
   font-size: 0.9375rem;
   font-weight: 700;
