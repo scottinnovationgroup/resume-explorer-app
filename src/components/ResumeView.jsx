@@ -46,11 +46,9 @@ export default function ResumeView({ data, view }) {
         <CertificationsSection certifications={data.certifications} />
       </div>
 
-      {isDetailed && (
-        <div id="independent-projects">
-          <IndependentProjectsSection projects={data.independent_projects} />
-        </div>
-      )}
+      <div id="independent-projects">
+        <IndependentProjectsSection projects={data.independent_projects} />
+      </div>
     </article>
   )
 }

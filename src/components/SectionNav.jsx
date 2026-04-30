@@ -27,7 +27,7 @@ const SECTION_DEFS = [
   { id: 'skills',               label: 'Skills',         views: ['detailed']                                            },
   { id: 'education',            label: 'Education',      views: ['compact', 'expanded', 'detailed']                     },
   { id: 'certifications',       label: 'Certifications', views: ['compact', 'expanded', 'detailed']                     },
-  { id: 'independent-projects', label: 'Side Projects',  views: ['detailed'],                        hasChildren: true  },
+  { id: 'independent-projects', label: 'Independent Projects',  views: ['compact', 'expanded', 'detailed'], hasChildren: true  },
 ]
 
 function buildSections(data, view) {

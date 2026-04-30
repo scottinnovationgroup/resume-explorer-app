@@ -691,9 +691,7 @@ export function ResumePdf({ data, view }) {
 
         <PdfCertificationsSection certifications={data.certifications} />
 
-        {isDetailed && (
-          <PdfIndependentProjectsSection projects={data.independent_projects} />
-        )}
+        <PdfIndependentProjectsSection projects={data.independent_projects} />
 
         <PdfFooter />
       </Page>
