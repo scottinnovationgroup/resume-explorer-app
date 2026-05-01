@@ -75,6 +75,51 @@ npm run preview  # preview the production build locally
 
 ---
 
+## Configuration
+
+### Toolbar Branding
+
+The toolbar displays a brand area on the left side. You can control it in `src/config.js` via the `options` export:
+
+```js
+export const options = {
+  showBrandIcon:  true,   // Show/hide the icon next to the brand
+  showBrandTitle: true,   // Show/hide the "Resume Explorer" label
+  brandIcon:      null,   // Optional path to a custom icon in /public (e.g. '/icon.png')
+                          // Supports PNG, JPG, or SVG. Leave null to use the default SVG icon.
+}
+```
+
+The person's name is always pulled from `person.name` in your data file and displayed alongside the brand. If no name is present, only the brand elements render.
+
+To use a custom icon, place your image file in the `/public` folder and set `brandIcon` to its root-relative path:
+
+```js
+brandIcon: '/brand-icon.svg'
+```
+
+### Google Analytics
+
+Google Analytics is optional and disabled by default. To enable it:
+
+1. Copy `sample.env` and rename it to `.env`:
+   ```bash
+   cp sample.env .env
+   ```
+
+2. Fill in your GA4 Measurement ID:
+   ```
+   VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+   ```
+
+3. Rebuild and redeploy.
+
+Find your Measurement ID in Google Analytics under **Admin → Data Streams → your stream → Measurement ID**.
+
+If `VITE_GA_MEASUREMENT_ID` is blank or the `.env` file is absent, no analytics code is loaded. The `.env` file is gitignored — `sample.env` is the committed reference.
+
+---
+
 ## Data Model
 
 All resume content is defined in a single JSON file. Only the fields listed below are used by the application — any additional fields in your file will be ignored.
@@ -182,7 +227,7 @@ Shown in all views.
 
 ### `independent_projects[]`
 
-Side projects shown in the **Detailed** view.
+Side projects shown in all views.
 
 | Field | Type | Description |
 |---|---|---|
@@ -219,10 +264,13 @@ Side projects shown in the **Detailed** view.
 
 ```
 resume-explorer-app/
+├── sample.env                   # Reference env file — copy to .env and fill in values
+├── public/                      # Static assets served at root (favicon, custom brand icon, etc.)
 ├── src/
 │   ├── App.jsx                  # Root component, config resolution, view state
-│   ├── config.js                # Your config (gitignored — create from sample)
+│   ├── config.js                # Your config (gitignored — create from sample.config.js)
 │   ├── sample.config.js         # Fallback config, committed as reference
+│   ├── main.jsx                 # React entry point; loads Google Analytics if configured
 │   ├── index.css                # All styles
 │   ├── data/
 │   │   └── sample.json          # Complete sample data model with fictitious data
@@ -253,4 +301,4 @@ resume-explorer-app/
 | | |
 |---|---|
 | App Version | 1.0.0 |
-| README Updated | April 29, 2026 |
+| README Updated | May 1, 2026 |
