@@ -462,6 +462,18 @@ body.nav-collapsed .app-footer {
   margin-bottom: 0;
   padding-bottom: 0;
 }
+@media (max-width: 600px) {
+  .company-group {
+    margin-left: -15px;
+    padding-left: 15px;
+  }
+}
+@media (max-width: 430px) {
+  .company-group {
+    margin-left: -15px;
+    padding-left: 15px;
+  }
+}
 
 /* ─── Role Bullets ────────────────────────────────────────────── */
 .role-bullets-container {
