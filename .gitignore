@@ -5,3 +5,4 @@ resume_explorer_model.json
 /.claude
 /data/bscott.json
 src/config.js
+/.env
