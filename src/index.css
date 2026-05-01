@@ -246,6 +246,11 @@ body.nav-collapsed .app-footer {
   .view-toggle--desktop { display: none; }
   .view-toggle--mobile  { display: flex; position: relative; }
 }
+@media (max-width: 430px) {
+  .export-label { display: none; }
+  .export-link  { padding: 0; }
+  .toolbar-divider { margin: 0; }
+}
 
 .view-toggle-trigger {
   display: flex;

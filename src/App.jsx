@@ -145,7 +145,7 @@ export default function App() {
                   <path d="M8 1v9M4 7l4 4 4-4M2 13h12" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               )}
-              PDF
+              <span className="export-label">PDF</span>
             </button>
           </div>
         </div>
