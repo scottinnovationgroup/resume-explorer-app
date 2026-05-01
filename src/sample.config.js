@@ -18,4 +18,5 @@ export default resumeData
 export const options = {
   showBrandIcon:  true,  // Show/hide the document icon next to the brand
   showBrandTitle: true,  // Show/hide the "Resume Explorer" label
+  brandIcon:      null,  // Path to a custom icon in /public (e.g. '/icon.png'). Null uses the default SVG.
 }

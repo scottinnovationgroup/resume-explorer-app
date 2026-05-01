@@ -81,6 +81,13 @@ a:hover {
   gap: 6px;
   color: #6b7280;
 }
+.toolbar-brand-icon {
+  display: block;
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
 .toolbar-person-name {
   font-size: 0.9375rem;
   font-weight: 700;
